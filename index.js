@@ -30,7 +30,7 @@ searchForm.addEventListener('submit', e => {
   const articleImage = image.image;
 
   const url = `${mainEndpoint}${query}&${language}&${sortBy}&${pageResults}&${apiKey}`;
-  console.log(url);
+  
   fetch(url)
     .then(res => res.json())
     .then(data => data.articles)
