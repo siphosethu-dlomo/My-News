@@ -31,6 +31,7 @@ searchForm.addEventListener('submit', e => {
 
   const url = `${mainEndpoint}${query}&${language}&${sortBy}&${pageResults}&${apiKey}`;
   
+  loader('loading');
   fetch(url)
     .then(res => res.json())
     .then(data => data.articles)
@@ -59,7 +60,7 @@ searchForm.addEventListener('submit', e => {
         `;
       });
       output += '</div>';
-      document.getElementById('results').innerHTML = output
+      document.getElementById('results').innerHTML = output;
     });
 
   e.preventDefault();
@@ -79,4 +80,16 @@ function showMessage(message, className) {
 
   // remove message
   setTimeout(() => document.querySelector('.alert').remove(), 3000);
-}
+};
+
+// loader
+
+function loader(className) {
+  const div = document.createElement('div');
+  div.className = className;
+
+  const results = document.getElementById('results');
+  results.appendChild(div);
+
+  return div;
+};
