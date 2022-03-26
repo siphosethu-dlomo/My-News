@@ -4,6 +4,7 @@ const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
 searchForm.addEventListener('submit', e => {
+  e.preventDefault();
   // get the search term
   const searchTerm = searchInput.value;
   // get sort
@@ -15,6 +16,7 @@ searchForm.addEventListener('submit', e => {
   if(searchTerm === '') {
     // show message
     showMessage('Please add a search term', 'alert-danger');
+    return;
   }
 
   // clear input
@@ -37,7 +39,9 @@ searchForm.addEventListener('submit', e => {
     .then(data => data.articles)
     .then((results)  => {
       let output = '<div class="row row-cols-1 row-cols-md-3 g-4">';
-
+      if(results.length < 1) {
+        showMessage('No matching results found', 'alert-danger');
+      }
       // loop through posts
       results.forEach(article => {
         let image = article.urlToImage ? article.urlToImage : articleImage;
@@ -62,8 +66,6 @@ searchForm.addEventListener('submit', e => {
       output += '</div>';
       document.getElementById('results').innerHTML = output;
     });
-
-  e.preventDefault();
 });
 
 // show message
